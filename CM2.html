@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <title>CM2</title>
+    </head>
+    <body class="container" style="max-width:920px">
+        <!-- Title -->
+        <div>
+            <div class="row mt-5 mb-5">
+                <div class="col text-center">
+                    <p class="h3 font-weight-normal">Cross-modal Map Learning for Vision and Language Navigation</p>
+                </div>
+            </div>
+
+            <!-- authors -->
+            <div class="col text-center h5 font-weight-bold mb-1">
+		    <a class="col-md-3 col-xs-7" href="https://ggeorgak11.github.io/"><span>Georgios Georgakis</span></a>
+		    <a class="col-md-3 col-xs-7" href="https://sites.google.com/view/karlschmeckpeper"><span>Karl Schmeckpeper</span></a>
+		    <a class="col-md-3 col-xs-7" href="https://www.linkedin.com/in/karan-wanchoo-21b94240/"><span>Karan Wanchoo</span></a>
+            <a class="col-md-3 col-xs-7" href="https://sdan2.github.io/"><span>Soham Dan</span></a> <br>
+            <a class="col-md-3 col-xs-7" href="https://www.miltsakaki.com/"><span>Eleni Miltsakaki</span></a>
+            <a class="col-md-3 col-xs-7" href="https://www.cis.upenn.edu/~danroth/"><span>Dan Roth</span></a>
+		    <a class="col-md-3 col-xs-7" href="https://www.cis.upenn.edu/~kostas"><span>Kostas Daniilidis</span></a>
+            </div>
+
+            <!-- affiliations -->
+            <div class="row text-center mt-3 mb-3">
+		    <a class="col-md-12" href="https://www.upenn.edu/"><span>University of Pennsylvania</span></a>
+            </div>
+	    <div>
+      	    <img src="figures/navigation3.png" width="100%">
+	    </div>
+        </div>
+
+        <!-- Paper section -->
+        <div>
+            <hr>
+            <div class="row">
+                <div class="col-md-3 col-sm-3 col-xs-12 text-center col-sm-3">
+                    <div class="row mt-4">
+                        <a href="" style="max-width:200px; margin-left:auto; margin-right:auto">
+                            <img src="figures/paper.png" alt="paper-snapshot" class="img-thumbnail" style="box-shadow: 10px 10px 5px grey;" width="80%">
+                        </a>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+                            <a class="h5" href="https://arxiv.org/pdf/2203.05137.pdf" style="margin-right:10px">
+                                <span>[Arxiv]</span>
+                            </a>
+                            <!-- <a class="h5" href="https://www.seas.upenn.edu/~nkolot/projects/prohmr/files/prohmr-supp.pdf" style="margin-right:10px">
+                                <span>[Supplementary]</span> -->
+                            </a>
+                            <a class="h5" href="https://github.com/ggeorgak11/CM2" style="margin-right:10px">
+                                <span>[Code]</span>
+                            </a>
+                            <a class="h5" href="georgakis2022cm2.bib" target="_blank">
+                                <span>[Bibtex]</span>
+                            </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <p class="h4 font-weight-bold ">Abstract</p>
+                      <p> 
+                        We consider the problem of Vision-and-Language Navigation (VLN). The majority of current methods for VLN are trained end-to-end using either unstructured memory such as LSTM, or using cross-modal attention over the egocentric observations of the agent. In contrast to other works, our key insight is that the association between language and vision is stronger when it occurs in explicit spatial representations.  In this work, we propose a cross-modal map learning model for vision-and-language navigation that first learns to predict the top-down semantics on an egocentric map for both observed and unobserved regions, and then predicts a path towards the goal as a set of waypoints. In both cases, the prediction is informed by the language through cross-modal attention mechanisms. We experimentally test the basic hypothesis that language-driven navigation can be solved given a map, and then show competitive results on the full VLN-CE benchmark.
+                      </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture, explaination -->
+        <div>
+            <hr>
+            <div class="row text-center">
+                <div class="col">
+                    <p class="h2">Overview</p>
+                </div>
+            </div>
+
+	    <!--
+            <div class='row text-left'>
+                <div class='col'>
+			<p class='h5'><em> Architecture </em></p>
+	    	</div>
+	    </div>
+	    -->
+
+            <div class="row mt-3">
+            <div class="col-md-6 col-sm-6 col-xs-12 align-middle mt-4">
+      	    	<img src="figures/title2.png" width="100%">
+	    </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 align-middle mt-5">
+                    <p class="text-break">
+                        We are motivated by studies on navigation of biological systems that suggest humans build 
+                        cognitive maps during such tasks. In contrast to other works which attempt to ground natural language
+                        on egocentric RGB-D observations, we argue that an egocentric map offers a more natural representation 
+                        for this task.
+                        To this end, we propose a novel navigation system for the VLN task in continuous environments, 
+                        that learns a language-informed representation for both map and trajectory prediction. 
+                        Our method semantically grounds the language through an egocentric map prediction task that
+                        learns to hallucinate information outside the field-of-view of the agent. This is
+                        followed by spatial grounding of the instruction by path prediction on the egocentric map.                         
+                    </p>
+                </div>
+            </div>
+
+	    <!--
+            <div class='row text-left'>
+                <div class='col'>
+			<p class='h5'><em>Interpenetration loss</em></p>
+	    	</div>
+	    </div>
+	    
+
+            <div class="row mt-3">
+            <div class="col-md-6 col-sm-6 col-xs-12 align-middle mt-5">
+                    <p class="text-break">
+In the typical case of 3D mesh regression, we can naturally use the mode
+ of the distribution and perform on par with approaches regressing a 
+single 3D mesh.
+                    </p>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12 align-middle mt-4">
+      	    	<img src="ProHMR_files/downstream_001.png" width="100%">
+	    </div>
+            </div>
+
+            <div class="row mt-3">
+            <div class="col-md-6 col-sm-6 col-xs-12 align-middle mt-5">
+                    <p class="text-break">
+When keypoints (or other types of 2D evidence) are available we can 
+treat our model as an image-based prior and fit a human body model to 
+the keypoints by combining it with a 2D reprojection term.
+                    </p>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12 align-middle mt-4">
+      	    	<img src="ProHMR_files/downstream_002.png" width="100%">
+	    </div>
+            </div>
+
+
+            <div class="row mt-3">
+            <div class="col-md-6 col-sm-6 col-xs-12 align-middle mt-5">
+                    <p class="text-break">
+When multiple views are available, we can naturally consolidate all 
+single-frame predictions by adding a cross-view consistency term.
+                    </p>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12 align-middle mt-4">
+      	    	<img src="ProHMR_files/downstream_003.png" width="100%">
+	    </div>
+            </div>
+
+
+        </div>
+        -->
+        
+        <!-- Results, transformation -->
+        <div>
+            <hr>
+            <div class="row text-center">
+                <div class="col">
+                    <p class="h2">Architecture</p>
+			<div>
+      	    			<img src="figures/system3.png" width="100%">
+        		</div>
+                    	<div class="text-left">
+                            At the core of our method are two cross-modal attention modules that learn language-informed 
+                            representations to facilitate both the hallucination of semantics over unobserved areas as well 
+                            as the prediction of a set of waypoints that the agent needs to follow to reach the goal. 
+                            The components colored in blue refer to the map prediction part of our model, the ones in 
+                            orange correspond to the path prediction, and the yellow boxes are the losses.
+                	</div>
+        	</div>
+       	    </div>
+               <hr>
+               <div class="row text-center">
+                   <div class="col">
+                       <p class="h2">Learned Representations</p>
+                   </div>
+               </div>
+
+               <div class="row text-center">
+                <div>
+			<div>
+      	    			<img src="figures/spatial_and_semantic_grounding_website.png" width="80%">
+        		</div>
+                    	<div class="text-center">
+				<strong>Left</strong>: Visualization of cross-modal path attention decoder output that focuses on areas around 
+                goal locations and along paths. The agent's location is denoted with a green circle and the goal with an orange star.
+                <strong>Right</strong>: Visualization of the cross-modal attention representation between map and specific word tokens. 
+                The representation tends to focus on semantic areas of the map that correspond to the object referred to by the token.
+                	</div>
+                </div>
+            </div>
+
+
+
+            <hr>
+            <div class="row text-center">
+                <div class="col">
+                    <p class="h2">Results</p>
+                </div>
+            </div>
+
+            <div class="row text-center">
+                <div>
+			<div>
+      	    			<img src="figures/navigation3_supplemental.png" width="80%">
+        		</div>
+                    	<div class="text-center">
+				<strong>Navigation results</strong>. The top row of each
+                example shows the RGB observations of the agent, while bottom shows the path prediction on the egocentric maps (the agent is in the
+                middle looking upwards shown as the green circle). The red waypoints represent our path prediction at the particular time-step. Observe
+                that the goal, shown as an orange star, is neither visible nor within the egocentric map at the beginning of the episodes. The ground-truth
+                map and path are depicted in the bottom left corner.
+                	</div>
+                </div>
+            </div>
+            
+            <br>
+            
+            <div class="row text-center">
+                <div>
+			<div>
+      	    			<img src="figures/map_attention_supplementary.png" width="70%">
+        		</div>
+                    	<div class="text-center">
+				<strong>Semantic map predictions with and without cross-modal map attention.</strong> 
+                The cross-modal map attention extracts useful information from language that improves the prediction of the semantic map.
+                	</div>
+                </div>
+            </div>
+
+            <!--
+            <hr>
+            <div class="row text-center">
+		<div>
+		<a><video src="ProHMR_files/video_1.mp4" ,="" type="video/mp4" autoplay="autoplay" muted="muted" loop="" width="90%"></video></a>
+		<a><video src="ProHMR_files/video_2.mp4" ,="" type="video/mp4" autoplay="autoplay" muted="muted" loop="" width="90%"></video></a>
+		<a><video src="ProHMR_files/video_3.mp4" ,="" type="video/mp4" autoplay="autoplay" muted="muted" loop="" width="90%"></video></a>
+                <div class="text-center">
+			<strong>Aditional fitting results</strong>. Please note that these are per-frame fitting results without any postprocessing.
+                </div>
+		</div>
+            </div>
+        </div>
+             -->
+
+        <!-- Ack -->
+        <div>
+            <hr>
+
+            <div class="row mb-5 text-center">
+                <div class="col">
+                    <p class="h2">Acknowledgements</p>
+		    <div class="text-left">
+		    <p>Research was sponsored by the Army Research Office and was accomplished under Grant Number W911NF-20-1-0080, 
+                as well as by the ARL DCIST CRA W911NF-17-2-0181, NSF TRIPODS 1934960, and NSF CPS 2038873 grants.
+		    </p><p>The design of this project page was based on <a href="https://www.guandaoyang.com/PointFlow/">this</a> website.
+		    </p></div>
+                </div>
+            </div>
+        </div>
+    
+
+</body></html>
